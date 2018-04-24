@@ -30,7 +30,7 @@ public class categoryManageController {
 
     @RequestMapping("add_category.do")
     @ResponseBody
-    public ServerResponse addCategory(HttpSession session,String categoryName,@RequestParam(value = "parentId",defaultValue = "0") int parentId){
+    public ServerResponse<String> addCategory(HttpSession session,String categoryName,@RequestParam(value = "parentId",defaultValue = "0") int parentId){
 
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null){

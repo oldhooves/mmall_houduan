@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements ICategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public ServerResponse addCategory(String categoryName,Integer parentId){
+    public ServerResponse<String> addCategory(String categoryName,Integer parentId){
         if (parentId == null || StringUtils.isBlank(categoryName)){
             return ServerResponse.creatByErrorMessage("添加品类参数错误");
         }
@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements ICategoryService {
      * @Date: 21:27 2018-04-21
      * @return com.mmall.common.ServerResponse
      */
-    public ServerResponse selectCategoryAndChildrenById(Integer categoryId){
+    public ServerResponse<List<Integer>> selectCategoryAndChildrenById(Integer categoryId){
         Set<Category> categorySet = Sets.newHashSet();
         findChildCategory(categorySet,categoryId);
 
