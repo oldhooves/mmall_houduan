@@ -1,5 +1,6 @@
 package com.mmall.service.impl;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
@@ -13,6 +14,7 @@ import com.mmall.util.BigDecimalUtil;
 import com.mmall.util.PropertiesUtil;
 import com.mmall.vo.CartProductVo;
 import com.mmall.vo.CartVo;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,9 +53,50 @@ public class CartServiceImpl implements ICartService {
             cart.setQuantity(count);
             cartMapper.updateByPrimaryKeySelective(cart);
         }
+        return this.list(userId);
+    }
+
+    public ServerResponse<CartVo> update(Integer userId,Integer productId,Integer count){
+        if (productId == null || count ==null){
+            return ServerResponse.creatByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        Cart cart = cartMapper.selectCartByUserIdProductId(userId,productId);
+        if (cart != null){
+            cart.setQuantity(count);
+        }
+        cartMapper.updateByPrimaryKeySelective(cart);
+        return this.list(userId);
+
+    }
+
+    public ServerResponse<CartVo> deleteProduct(Integer userId,String productIds){
+        List<String> productList = Splitter.on(",").splitToList(productIds);
+        if (CollectionUtils.isEmpty(productList)){
+            return ServerResponse.creatByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
+        }
+        cartMapper.deleteByUserIdProductIds(userId,productList);
+        return this.list(userId);
+    }
+
+    public ServerResponse<CartVo> list(Integer userId){
         CartVo cartVo = this.getCartVoLimit(userId);
         return ServerResponse.creatBySuccess(cartVo);
     }
+
+    public ServerResponse<CartVo> selectOrUnSelect(Integer userId,Integer productId,Integer checked){
+        cartMapper.checkedOrUnCheckedProduct(userId,productId,checked);
+        return this.list(userId);
+    }
+
+    public ServerResponse<Integer> getCartProductCount(Integer userId){
+        if (userId == null){
+            return ServerResponse.creatBySuccess(0);
+        }
+        return ServerResponse.creatBySuccess(cartMapper.selectCartProductCount(userId));
+    }
+
+
+
 
 
     private CartVo getCartVoLimit(Integer userId){
