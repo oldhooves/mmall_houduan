@@ -1,1 +1,1 @@
-mmall_learning
+springmvc+mybatis构建一个购物系统
