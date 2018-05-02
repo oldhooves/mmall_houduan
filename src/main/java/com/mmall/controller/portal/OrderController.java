@@ -41,7 +41,7 @@ public class OrderController {
         if (user == null){
             return ServerResponse.creatByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iOrderService.pay(orderNo,user.getId(),path);
+        return iOrderService.createOrder(user.getId(),shippingId);
     }
 
 
