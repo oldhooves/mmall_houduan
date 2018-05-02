@@ -1,5 +1,7 @@
 package com.mmall.controller.backend;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.mmall.common.Const;
 import com.mmall.common.ResponseCode;
@@ -170,6 +172,8 @@ public class ProductManageController {
             return resultMap;
         }
     }
+
+
 
 
 
