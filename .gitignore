@@ -17,13 +17,12 @@ target/
 /idea/
 *.ipr
 *.iml
-*.iws
+
 
 
 #temp
 *.log
 *.cache
-*.diff
 *.patch
 *.tmp
 
