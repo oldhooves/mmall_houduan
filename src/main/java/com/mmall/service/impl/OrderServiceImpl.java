@@ -567,7 +567,7 @@ public class OrderServiceImpl implements IOrderService {
                 return ServerResponse.creatBySuccess("发货成功");
             }
         }
-        return ServerResponse.creatByErrorMessage("订单不存在");
+        return ServerResponse.creatByErrorMessage("发货失败");
     }
 
 }

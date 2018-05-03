@@ -226,6 +226,6 @@
     SELECT
     <include refid="Base_Column_List"/>
     from mmall_order
-    order by creat_time DESC
+    order by create_time DESC
   </select>
 </mapper>
