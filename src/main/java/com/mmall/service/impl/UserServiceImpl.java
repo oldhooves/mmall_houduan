@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
         if (resultCount == 0){
             return ServerResponse.creatByErrorMessage("注册失败");
         }
-        return ServerResponse.creatBySuccessMessage("注册成功");
+        return ServerResponse.createBySuccessMessage("注册成功");
     }
 
     public ServerResponse<String> checkValid(String str,String type){
@@ -80,7 +80,7 @@ public class UserServiceImpl implements IUserService {
         else{
             return ServerResponse.creatByErrorMessage("参数错误");
         }
-        return ServerResponse.creatBySuccessMessage("校验成功");
+        return ServerResponse.createBySuccessMessage("校验成功");
     }
 
     public ServerResponse selectQuestion(String username){
@@ -124,7 +124,7 @@ public class UserServiceImpl implements IUserService {
             int rowCount = userMapper.updatePasswordByUsername(username,md5Password);
 
             if (rowCount > 0){
-                return ServerResponse.creatBySuccessMessage("修改密码成功");
+                return ServerResponse.createBySuccessMessage("修改密码成功");
             }
         }else {
             return ServerResponse.creatByErrorMessage("token错误，请重新获取重置密码的token");
@@ -142,7 +142,7 @@ public class UserServiceImpl implements IUserService {
         user.setPassword(MD5Util.MD5EncodeUtf8(passwordNew));
         int updateCount = userMapper.updateByPrimaryKeySelective(user);
         if (updateCount > 0){
-            return ServerResponse.creatBySuccessMessage("密码更新成功");
+            return ServerResponse.createBySuccessMessage("密码更新成功");
         }
         return ServerResponse.creatByErrorMessage("密码更新失败");
     }

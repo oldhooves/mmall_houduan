@@ -49,7 +49,7 @@ public class ServerResponse<T> implements Serializable {
     public static <T> ServerResponse<T> creatBySuccess(){
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode());
     }
-    public static <T> ServerResponse<T> creatBySuccessMessage(String msg){
+    public static <T> ServerResponse<T> createBySuccessMessage(String msg){
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(),msg);
     }
     public static <T> ServerResponse<T> creatBySuccess(T data){
